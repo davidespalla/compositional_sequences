@@ -2,8 +2,6 @@ import numpy as np
 import PatternStructure as ps
 import AssociativeNetwork as nt
 import matplotlib.pyplot as plt
-from ipywidgets import interact, fixed
-import ipywidgets as widgets
 
 
 def calculate_coherence(activity, J_pattern):
@@ -36,3 +34,18 @@ def retrieved_sequence(pattern_struct, history):
         if attractor_tc[i] != attractor_tc[i-1]:
             sequence.append(attractor_tc[i])
     return np.asarray(sequence)
+
+
+def compute_retrieval_quality(coherence):
+    return np.mean(np.max(coherence, axis=0))
+
+
+def compute_obedience(sequence, transition_mat):
+    if len(sequence) <= 1:
+        return np.nan
+
+    followed = 0
+    for i in range(1, len(sequence)):
+        if transition_mat[sequence[i-1], sequence[i]] > 0:
+            followed += 1
+    return followed / (len(sequence)-1)

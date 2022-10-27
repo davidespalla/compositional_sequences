@@ -73,11 +73,11 @@ class PatternStructure:
 
     def build_interactions(self):
         if self.autoassociative_matrix == None:
-            print("Building autoassociative interactions ...")
+            #print("Building autoassociative interactions ...")
             self._build_autoassociative_matrix_()
 
         if self.heteroassociative_matrix == None:
-            print("Building heteroassociative interactions ...")
+            #print("Building heteroassociative interactions ...")
             self._build_heteroassociative_matrix_()
 
         self.interaction_matrix = self.autoassociative_matrix+self.heteroassociative_matrix
