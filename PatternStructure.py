@@ -64,7 +64,7 @@ class PatternStructure:
                 self.chains.append(random.sample(
                     range(self.n_patterns), self.patterns_per_chain))
         else:
-            self.chains == chains
+            self.chains = chains
 
         self.chain_transitions = np.zeros((self.n_patterns, self.n_patterns))
         for chain in self.chains:
