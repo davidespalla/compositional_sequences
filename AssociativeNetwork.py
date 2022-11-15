@@ -16,6 +16,10 @@ class Network():
     def run_dynamics(self, start_config: np.array,
                      n_steps: int,
                      sparsity: float):
+        '''
+        Runs a dynamics starting for the given configuration, for the given number of steps,
+        constraining the activity to the given sparsity.
+        '''
         self.history = np.empty((n_steps, self.N))
         self.history[0, :] = start_config
         for i in range(1, n_steps):
@@ -26,6 +30,9 @@ class Network():
 
 
 def net_dynamics(V, J, f):
+    '''
+    Defines how an iteration step of the dynamics is calculated.    
+    '''
     h = np.dot(J, V)
     v_out = np.asarray(list(map(lambda h: ReLu(h), h)))
 
@@ -39,6 +46,9 @@ def net_dynamics(V, J, f):
 
 
 def ReLu(x):
+    '''
+    Returns x if x>0, else returns 0.  
+    '''
     if x > 0:
         out = x
     else:
@@ -48,6 +58,11 @@ def ReLu(x):
 
 
 def fix_sparsity(V, f):
+    '''
+    Fixes the sparsity of the given vector `V`  by computing the `f` percentile
+    of the values of `V`, subtracting it from all values of `V` and setting to 0 
+    all elements <0.
+    '''
     vout = V
     th = np.percentile(V, (1.0-f)*100)
     for i in range(len(V)):
@@ -59,6 +74,10 @@ def fix_sparsity(V, f):
 
 
 def calculate_coherence(activity, J_pattern):
+    '''
+    Computes the coherence of the given activity vector with the given pattern interaction matrix.
+    '''
+
     overlap = activity @ J_pattern @ activity.T
     norm = float(len(activity)*(len(activity)-1)/2.)
     return overlap/norm
