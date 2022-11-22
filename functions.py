@@ -40,6 +40,14 @@ def compute_retrieval_quality(coherence):
     return np.mean(np.max(coherence, axis=0))
 
 
+def compute_retrieval_probability(coherence, threshold):
+    '''
+    Computes the fraction of times during a dynamics in which the maximum coherence was above a given threshold
+    '''
+    max_coherence = np.max(coherence, axis=0)
+    return np.sum(max_coherence > threshold) / len(max_coherence)
+
+
 def compute_obedience(sequence, transition_mat):
     if len(sequence) <= 1:
         return np.nan
