@@ -55,3 +55,7 @@ class OrderParameterCalculator:
         rp = np.sum(np.logical_and(~on_chain, retrieved))/len(max_coherence)
 
         return rp
+
+
+def new_parameter(self, threshold=1):
+    pass
