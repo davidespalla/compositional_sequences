@@ -208,14 +208,15 @@ def pattern_overlap_matrix(pattern_structure: PatternStructure) -> np.array:
     return matrix
 
 
-def build_correlated_activity(pattern_struct, pattern_num, position=0.5):
+def build_correlated_activity(pattern_struct, pattern_num, position=0.5, sigma=0):
     '''
     Produces an activity configuration correlated with the given pattern in the given position.
     '''
 
     V = np.zeros(pattern_struct.n_cells)
+    noise = np.random.normal(0, sigma, pattern_struct.n_cells)
     pattern = pattern_struct.patterns[pattern_num]
     for cell in pattern.keys():
         V[cell] = pattern_struct.kernel.symmetric_kernel(
             position, pattern[cell])
-    return V
+    return V + noise
