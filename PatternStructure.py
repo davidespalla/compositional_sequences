@@ -41,6 +41,7 @@ class PatternStructure:
     kernel: InteractionKernel
 
     build_structure: bool = True
+    periodic_chains: bool = False
 
     patterns: list = None
     chains: list = None
@@ -91,6 +92,8 @@ class PatternStructure:
         for chain in self.chains:
             for i in range(1, len(chain)):
                 self.chain_transitions[chain[i-1], chain[i]] += 1
+            if self.periodic_chains:
+                self.chain_transitions[chain[-1], chain[0]] += 1
 
     def build_interactions(self):
         '''
