@@ -56,6 +56,3 @@ class OrderParameterCalculator:
 
         return rp
 
-
-def new_parameter(self, threshold=1):
-    pass
